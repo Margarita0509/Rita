@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
+int main()
+{
+double lv, rv, ans;
+char* op;
+char proceed = 'n';
+char buf[64];
+char ops[8] = "+-*/^!";
+do
+{
+printf("Input sequence: ");
+fgets(buf, sizeof(buf), stdin);
+op = strchr(ops, buf, ops);
+lv = atof(strtok(buf, ops));
+if(*op != '!')
+rv = atof(strtok(NULL, ops));
+switch(*op)
+{
+case '+':
+ans = lv + rv;
+break;
+case '-':
+ans = lv - rv;
+break;
+case '*':
+ans = lv * rv;
+break;
+case '/':
+ans = lv / rv;
+break;
+case '^':
+ans = pow(lv, rv);
+break;
+case '!':
+ans = tgamma(lv + 1);
+break;
+}
+printf("Answer is %f\nDo you want to continue? (y/n) ", ans);
+fgets(buf, sizeof(buf), stdin);
+sscanf(buf, " %c", &proceed);
+} while(proceed != 'n');
+return 0;
+}
